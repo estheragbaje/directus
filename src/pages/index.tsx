@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function Home({ issues }: { issues: IssueData[] }) {
   const { data } = useIssues({ issues });
+  const createMutation = useCreateIssue();
 
   return (
     <>
@@ -29,6 +30,22 @@ export default function Home({ issues }: { issues: IssueData[] }) {
             description={issue.description}
           />
         ))}
+
+        <div>
+          <IssueCreateForm
+            onSubmit={(event) => {
+              event.preventDefault();
+
+              const formData = new FormData(event.currentTarget);
+              const title = formData.get('title')?.toString();
+              const description = formData.get('description')?.toString();
+
+              if (!title || !description) return;
+              createMutation.mutate({ title, description });
+              event.currentTarget.reset();
+            }}
+          />
+        </div>
       </main>
     </>
   );
