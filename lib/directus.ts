@@ -10,10 +10,9 @@ type Collections = {
   issues: IssueData;
 };
 
-const directus = new Directus<Collections>(process.env.DIRECUTS_URL);
-
 export async function getDirectus() {
-  await directus.auth.static(process.env.DIRECUTS_TOKEN);
+  const directus = new Directus<Collections>(process.env.DIRECTUS_URL!);
+  await directus.auth.static(process.env.DIRECTUS_TOKEN!);
   return directus;
 }
 
