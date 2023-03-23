@@ -5,11 +5,13 @@ import { IssueData } from './directus';
 
 export const queryClient = new QueryClient();
 
+const baseUrl = `${process.env.VERCEL_URL}/api/issues`;
+
 export function useIssues({ issues }: { issues: IssueData[] }) {
   return useQuery(
     'issues',
     async () => {
-      const res = await fetch('http://localhost:3001/api/issue');
+      const res = await fetch(baseUrl);
       return res.json() as Promise<IssueData[]>;
     },
     {
@@ -21,7 +23,7 @@ export function useIssues({ issues }: { issues: IssueData[] }) {
 export function useCreateIssue() {
   return useMutation(
     async (issue: Omit<IssueData, 'id'>) => {
-      const res = await fetch('http://localhost:3001/api/issue', {
+      const res = await fetch(baseUrl, {
         method: 'POST',
         body: JSON.stringify(issue),
         headers: {
@@ -41,7 +43,7 @@ export function useCreateIssue() {
 export function useUpdateIssue() {
   return useMutation({
     mutationFn: async (issue: IssueData) => {
-      const res = await fetch('http://localhost:3001/api/issue', {
+      const res = await fetch(baseUrl, {
         method: 'PUT',
         body: JSON.stringify(issue),
         headers: {
@@ -64,7 +66,7 @@ export function useUpdateIssue() {
 export function useDeleteIssue() {
   return useMutation(
     async (id: string) => {
-      const res = await fetch('http://localhost:3001/api/issue', {
+      const res = await fetch(baseUrl, {
         method: 'DELETE',
         body: JSON.stringify({ id }),
         headers: {
