@@ -65,7 +65,7 @@ export function useUpdateIssue() {
 
 export function useDeleteIssue() {
   return useMutation(
-    async (id: string) => {
+    async (id: number) => {
       const res = await fetch(baseUrl, {
         method: 'DELETE',
         body: JSON.stringify({ id }),
