@@ -1,3 +1,6 @@
+import styles from '@/styles/Home.module.css';
+
+
 type IssueCreateFormProps = {
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
 };
@@ -5,7 +8,7 @@ type IssueCreateFormProps = {
 export function IssueCreateForm(props: IssueCreateFormProps) {
   const { onSubmit } = props;
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={styles.createCard}>
       <h2>Create new issue</h2>
       <div>
         <label htmlFor='title'>Title</label>

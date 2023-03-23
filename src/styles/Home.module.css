@@ -1,20 +1,36 @@
 .main {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 4rem 4rem 6rem 4rem;
+  max-width: 980px;
+  margin: 0 auto;
+  padding-top: 80px;
+  padding-inline: 32px;
   min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  gap: 120px;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 2rem;
+  align-content: flex-start;
+  flex: 1;
 }
 
 .h1 {
-  padding: 4rem 10rem 0 10rem;
   text-align: left;
+  margin-bottom: 40px;
 }
 
 .card {
@@ -90,67 +106,4 @@
   font-size: 0.8rem;
   padding: 0.5rem;
   transition: background 200ms, border 200ms, color 200ms;
-}
-
-/* Enable hover only on non-touch devices */
-
-@media (prefers-reduced-motion) {
-  .thirteen::before {
-    animation: none;
-  }
-
-  .card:hover span {
-    transform: none;
-  }
-}
-
-/* Mobile */
-@media (max-width: 700px) {
-  .content {
-    padding: 4rem;
-  }
-  .main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 6rem;
-    min-height: 100vh;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-    margin-bottom: 120px;
-    max-width: 320px;
-  }
-
-  .card {
-    padding: 1rem 2.5rem;
-  }
-
-  .card h2 {
-    margin-bottom: 0.5rem;
-  }
-}
-
-/* Tablet and Smaller Desktop */
-@media (min-width: 701px) and (max-width: 1120px) {
-  .grid {
-    grid-template-columns: repeat(2, 50%);
-  }
-  .main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 6rem;
-    min-height: 100vh;
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
 }
