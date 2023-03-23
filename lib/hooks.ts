@@ -1,34 +1,55 @@
 // React hooks for issue collection in Directus
 
-import { useMutation, useQuery } from 'react-query';
-import {
-  createIssue,
-  deleteIssue,
-  getIssues,
-  IssueData,
-  updateIssue,
-} from './directus';
-import { QueryClient } from 'react-query';
+import { QueryClient, useMutation, useQuery } from 'react-query';
+import { IssueData } from './directus';
 
 export const queryClient = new QueryClient();
 
 export function useIssues({ issues }: { issues: IssueData[] }) {
-  return useQuery('issues', getIssues, {
-    initialData: issues,
-  });
+  return useQuery(
+    'issues',
+    async () => {
+      const res = await fetch('http://localhost:3001/api/issue');
+      return res.json() as Promise<IssueData[]>;
+    },
+    {
+      initialData: issues,
+    }
+  );
 }
 
 export function useCreateIssue() {
-  return useMutation(createIssue, {
-    onSuccess() {
-      queryClient.invalidateQueries('issues');
+  return useMutation(
+    async (issue: Omit<IssueData, 'id'>) => {
+      const res = await fetch('http://localhost:3001/api/issue', {
+        method: 'POST',
+        body: JSON.stringify(issue),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return res.json();
     },
-  });
+    {
+      onSuccess() {
+        queryClient.invalidateQueries('issues');
+      },
+    }
+  );
 }
 
 export function useUpdateIssue() {
   return useMutation({
-    mutationFn: updateIssue,
+    mutationFn: async (issue: IssueData) => {
+      const res = await fetch('http://localhost:3001/api/issue', {
+        method: 'PUT',
+        body: JSON.stringify(issue),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return res.json() as Promise<IssueData>;
+    },
     onSuccess: (data) => {
       const issues = queryClient.getQueryData<IssueData[]>('issues') ?? [];
       const newIssues = issues.map((issue) => {
@@ -41,9 +62,21 @@ export function useUpdateIssue() {
 }
 
 export function useDeleteIssue() {
-  return useMutation(deleteIssue, {
-    onSuccess() {
-      queryClient.invalidateQueries('issues');
+  return useMutation(
+    async (id: string) => {
+      const res = await fetch('http://localhost:3001/api/issue', {
+        method: 'DELETE',
+        body: JSON.stringify({ id }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return res.json();
     },
-  });
+    {
+      onSuccess() {
+        queryClient.invalidateQueries('issues');
+      },
+    }
+  );
 }
