@@ -14,7 +14,10 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-
 ## Deployment
-The project has been deployed on Vercel [here]() so you can easily experience the application without starting your local server.
 
+The project has been deployed on Vercel [here](https://directus-hp9ykve5f-estheragbaje.vercel.app/) so you can easily experience the application without starting your local server.
+
+## Overview
+
+Get a high level overview of the project in this loom video [here](https://www.loom.com/share/72c7ca9a40b1405b92b0e2dc4b47423c)
