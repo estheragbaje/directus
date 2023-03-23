@@ -4,10 +4,14 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import { Issue } from '@/components/issue';
 import { getIssues, IssueData } from '../../lib/directus';
+import { useCreateIssue, useIssues } from '../../lib/hooks';
+import { IssueCreateForm } from '@/components/issue-create-form';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home({ issues }: { issues: IssueData[] }) {
+  const { data } = useIssues({ issues });
+
   return (
     <>
       <Head>
@@ -17,12 +21,14 @@ export default function Home({ issues }: { issues: IssueData[] }) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className={styles.main}>
-        <Issue
-          id={issue.id}
-          key={issue.id}
-          title={issue.title}
-          description={issue.description}
-        />
+        {data?.map((issue) => (
+          <Issue
+            id={issue.id}
+            key={issue.id}
+            title={issue.title}
+            description={issue.description}
+          />
+        ))}
       </main>
     </>
   );
