@@ -3,6 +3,7 @@ import styles from '@/styles/Home.module.css';
 import { IssueData } from '../../lib/directus';
 import { IssueEditForm } from './issue-edit-form';
 import { IssuePreview } from './issue-preview';
+import { useDeleteIssue, useUpdateIssue } from '../../lib/hooks';
 
 type IssueProps = IssueData & {
   isEditing?: boolean;
@@ -11,6 +12,10 @@ type IssueProps = IssueData & {
 export function Issue(props: IssueProps) {
   const { title, description, id, ...rest } = props;
   const [isEditing, setIsEditing] = useState(false);
+
+  const updateMutation = useUpdateIssue();
+
+  const deleteMutation = useDeleteIssue();
 
   return (
     <div className={styles.card} {...rest}>
@@ -27,6 +32,14 @@ export function Issue(props: IssueProps) {
             const description = formData.get('description')?.toString();
 
             if (!title || !description) return;
+            updateMutation.mutate(
+              { title, description, id },
+              {
+                onSuccess() {
+                  setIsEditing(false);
+                },
+              }
+            );
           }}
         />
       ) : (
@@ -34,7 +47,9 @@ export function Issue(props: IssueProps) {
           title={title}
           description={description}
           onClickEdit={() => setIsEditing(true)}
-          onClickDelete={() => {}}
+          onClickDelete={() => {
+            deleteMutation.mutate(id);
+          }}
         />
       )}
     </div>
