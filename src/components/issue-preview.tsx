@@ -8,10 +8,10 @@ type IssuePreviewProps = {
 export function IssuePreview(props: IssuePreviewProps) {
   const { title, description, onClickEdit, onClickDelete } = props;
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <h2>{title}</h2>
       <p>{description}</p>
-      <div>
+      <div style={{ display: 'flex', gap: '10px' }}>
         <button onClick={onClickEdit}>Edit</button>
         <button onClick={onClickDelete}>Delete</button>
       </div>

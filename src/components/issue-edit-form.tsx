@@ -25,7 +25,7 @@ export function IssueEditForm(props: IssueEditFormProps) {
         name='description'
         defaultValue={description}
       />
-      <div>
+      <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
         <button type='button' onClick={onClickCancel}>
           cancel
         </button>
