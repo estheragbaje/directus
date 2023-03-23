@@ -95,6 +95,37 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+input[type='text'] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+button {
+  background: #e7e8e8;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  transition: background 200ms, border 200ms, color 200ms;
+}
+
 a {
   color: inherit;
   text-decoration: none;

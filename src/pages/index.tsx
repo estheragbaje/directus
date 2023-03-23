@@ -21,30 +21,35 @@ export default function Home({ issues }: { issues: IssueData[] }) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className={styles.main}>
-        {data?.map((issue) => (
-          <Issue
-            id={issue.id}
-            key={issue.id}
-            title={issue.title}
-            description={issue.description}
-          />
-        ))}
+      <main className={inter.className}>
+        <h1 className={styles.h1}>Github Issue Tracker</h1>
+        <div className={styles.main}>
+          <div className={styles.grid}>
+            {data?.map((issue) => (
+              <Issue
+                id={issue.id}
+                key={issue.id}
+                title={issue.title}
+                description={issue.description}
+              />
+            ))}
+          </div>
 
-        <div>
-          <IssueCreateForm
-            onSubmit={(event) => {
-              event.preventDefault();
+          <div>
+            <IssueCreateForm
+              onSubmit={(event) => {
+                event.preventDefault();
 
-              const formData = new FormData(event.currentTarget);
-              const title = formData.get('title')?.toString();
-              const description = formData.get('description')?.toString();
+                const formData = new FormData(event.currentTarget);
+                const title = formData.get('title')?.toString();
+                const description = formData.get('description')?.toString();
 
-              if (!title || !description) return;
-              createMutation.mutate({ title, description });
-              event.currentTarget.reset();
-            }}
-          />
+                if (!title || !description) return;
+                createMutation.mutate({ title, description });
+                event.currentTarget.reset();
+              }}
+            />
+          </div>
         </div>
       </main>
     </>
